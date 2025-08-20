@@ -27,9 +27,6 @@ client.cooldowns = new Collection();
 require("./handlers/commandHandler.js")(client);
 require("./handlers/eventHandler.js")(client);
 
-// Initialize database
-db.init();
-
 // Login to Discord with your client's token
 const token = process.env.DISCORD_TOKEN || config.token;
 if (!token) {
