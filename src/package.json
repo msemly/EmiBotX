@@ -2,10 +2,9 @@
   "name": "EmiBotX",
   "version": "1.0.0",
   "description": "EmiBotX is a feature-rich, all-inclusive Discord bot built with Node.js and Discord.js v14. It provides moderation, management, engagement, and automation features to enhance your Discord server experience.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-  "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
