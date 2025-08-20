@@ -1,13 +1,17 @@
+// ============================
+// EmiBotX main index.js
+// ============================
+
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
 const config = { token: process.env.DISCORD_TOKEN };
 const logger = require("./utils/logger.js");
 
-// Add this line at the top, before using db
+// Database
 const db = require("./database/database.js");
 
-// Create a new client instance
+// Create Discord client
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -27,11 +31,11 @@ client.cooldowns = new Collection();
 require("./handlers/commandHandler.js")(client);
 require("./handlers/eventHandler.js")(client);
 
-// Login to Discord with your client's token
+// Login function
 const token = process.env.DISCORD_TOKEN || config.token;
 if (!token) {
     logger.error(
-        "No Discord token provided! Please set DISCORD_TOKEN environment variable or add token to config.json",
+        "No Discord token provided! Please set DISCORD_TOKEN environment variable"
     );
     process.exit(1);
 }
@@ -45,24 +49,33 @@ client.login(token).catch((error) => {
 process.on("unhandledRejection", (error) => {
     logger.error("Unhandled promise rejection:", error);
 });
-
 process.on("uncaughtException", (error) => {
     logger.error("Uncaught exception:", error);
     process.exit(1);
 });
+
+// Example command for testing database
 client.on("messageCreate", (message) => {
-    // Ignore bot messages
     if (message.author.bot) return;
 
-    // !test command
     if (message.content === "!test") {
-        // Set a test value
         db.set("hello", "Hello, EmiBotX is working!");
-
-        // Get the value
         const value = db.get("hello");
-
-        // Reply in Discord
         message.channel.send(`Database test value: ${value}`);
     }
+});
+
+// ============================
+// Express Ping Server
+// ============================
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+    res.send("EmiBotX is alive!");
+});
+
+app.listen(port, () => {
+    console.log(`Ping server running on port ${port}`);
 });
