@@ -50,3 +50,19 @@ process.on("uncaughtException", (error) => {
     logger.error("Uncaught exception:", error);
     process.exit(1);
 });
+client.on("messageCreate", (message) => {
+    // Ignore bot messages
+    if (message.author.bot) return;
+
+    // !test command
+    if (message.content === "!test") {
+        // Set a test value
+        db.set("hello", "Hello, EmiBotX is working!");
+
+        // Get the value
+        const value = db.get("hello");
+
+        // Reply in Discord
+        message.channel.send(`Database test value: ${value}`);
+    }
+});
