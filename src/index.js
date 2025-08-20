@@ -4,6 +4,9 @@ const path = require("path");
 const config = { token: process.env.DISCORD_TOKEN };
 const logger = require("./utils/logger.js");
 
+// Add this line at the top, before using db
+const db = require("./database/database.js");
+
 // Create a new client instance
 const client = new Client({
     intents: [
