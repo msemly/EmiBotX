@@ -2,7 +2,6 @@ const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
 const config = { token: process.env.DISCORD_TOKEN };
-const db = require("./database/database.js");
 const logger = require("./utils/logger.js");
 
 // Create a new client instance
